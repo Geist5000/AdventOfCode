@@ -6,16 +6,20 @@ with open("data.txt","r") as f:
     
     
 count = 0
-groupQuestions = []
+groupQuestions = None
 for l in lines:
-    if(len(groupQuestions) == 0):
-        groupQuestions.extend(l)
+    
     if(len(l) == 0):
         count += len(groupQuestions)
-        groupQuestions = []
-    groupQuestions = [c for c in groupQuestions if c in l]
+        groupQuestions = None
+    else:
+        if(groupQuestions == None):
+            groupQuestions = l
+        else:
+            groupQuestions = [c for c in groupQuestions if c in l]
             
             
-count += len(groupQuestions)
+if(groupQuestions != None):
+    count += len(groupQuestions)
 
 print(count)
