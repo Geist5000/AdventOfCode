@@ -15,7 +15,7 @@ def howManyCanSkip(numbers):
 lines = []
 
 
-with open("shortInput.txt") as f:
+with open("testInput.txt") as f:
     lines = list(map(lambda l: int(l.replace("\n","")),f.readlines()))
 
 lines.append(0)
