@@ -1,3 +1,5 @@
+import itertools as it
+
 class Map:
     def __init__(self,data):
         self.map = {}
@@ -18,14 +20,24 @@ class Map:
         self.map[x][y] = seat
     def getNeighbours(self,x,y):
         neighbours = []
-        for nx in range(x-1,x+2):
-            if(nx>=0 and nx<self.width):
-                for ny in range(y-1,y+2):
-                    if(ny>=0 and ny<self.height):
-                        if(not (ny == y and nx == x)):
-                            neighbours.append(self.getPlace(nx,ny))
+        # single directions up,down,left,right
+        neighbours.append(self.getFirstNeighbour(reversed(range(0,x)),it.repeat(y,x)))
+        neighbours.append(self.getFirstNeighbour(range(x+1,self.width),it.repeat(y,self.width-x)))
+        neighbours.append(self.getFirstNeighbour(it.repeat(x,y),reversed(range(0,y))))
+        neighbours.append(self.getFirstNeighbour(it.repeat(x,self.height-y),range(y+1,self.height)))
+        # diagonals
+        neighbours.append(self.getFirstNeighbour(reversed(range(0,x)),reversed(range(0,y))))
+        neighbours.append(self.getFirstNeighbour(range(x+1,self.width),range(y+1,self.height)))
+        neighbours.append(self.getFirstNeighbour(range(x+1,self.width),reversed(range(0,y))))
+        neighbours.append(self.getFirstNeighbour(reversed(range(0,x)),range(y+1,self.height)))
+
         return neighbours
-    
+    def getFirstNeighbour(self,xList,yList):
+        for x,y in zip(xList,yList):
+            s = self.getPlace(x,y)
+            if(s != "."):
+                return s
+
     def doIteration(self):
         changes = []
         for x,l in enumerate(self.map.values()):
@@ -37,7 +49,7 @@ class Map:
                         if(s == "L"):
                             changes.append((x,y,"#"))
                             
-                    if(count >=4):
+                    if(count >=5):
                         if(s == "#"):
                             changes.append((x,y,"L"))
         self.applyChanges(changes)
