@@ -18,4 +18,3 @@ for id in busIds:
             smallestDiff = diff
             smallestId = time
 print(smallestDiff*smallestId)
-        
