@@ -9,49 +9,58 @@ def howManyCanSkip(numbers):
             break
             
     return count
+
+
+def getCombinationsOf(numbers):
+    
+    if(len(numbers) == 3):
+        return [numbers,[numbers[0],numbers[2]]]
+    elif(len(numbers) < 3):
+        return [numbers]
+    else:
+        currentNumber = numbers[-1]
+        combOfPrev = getCombinationsOf(numbers[:-1])
+        result = []
+        for c in combOfPrev:
+            result.append([*c,currentNumber])
+            if(c[-1] - c[-2] < 3):
+                result.append([*c[:-1],currentNumber])
+        return result
+    
+
         
 
 
 lines = []
 
 
-with open("testInput.txt") as f:
+with open("data.txt") as f:
     lines = list(map(lambda l: int(l.replace("\n","")),f.readlines()))
 
 lines.append(0)
 lines.sort()
+lines.append(lines[len(lines)-1]+3)
 
 # lines = [1,2,3,4]
 
 print(lines)
 
-combinations = 1
 
+combCount = 1
 
-previouslySkippable = 0
-alreadySkipped = 0
-skip = False
-for i,n in enumerate(lines):
-    if(i < len(lines)-2):
-        if(skip):
-            skip = False
-            continue
-        skippable = howManyCanSkip(lines[i:])
-        combs = pow(2,skippable)
-        
-        if(skippable>0):            
-            if(previouslySkippable== 0):
-                combinations *= combs
-            if(previouslySkippable == 1 and skippable>0):
-                combinations *= combs
-                combinations -= 1
-            if(previouslySkippable == 2 and skippable==2):
-                combinations *= combs
-                
-        if(skippable == 2):
-            skip = True
-        
-        previouslySkippable = skippable
-        
+prevNumber = 0
 
-print("Possible combs: " + str(combinations))
+lastGroup = [0]
+for i,l in enumerate(lines[1:]):
+    diff = l-prevNumber
+    prevNumber = l
+    if(diff == 3):
+        combs = getCombinationsOf(lastGroup)
+        combCount *= len(combs)
+        lastGroup = [l]
+    elif(diff == 1):
+        lastGroup.append(l)
+    else:
+        raise Exception()
+
+print("combs: " + str(combCount))
