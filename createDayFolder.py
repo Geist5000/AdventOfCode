@@ -19,6 +19,7 @@ def main(argv):
     -d:     The day as number
     -t:     The template folder as path
     """
+    opts = None
     try:
         opts = getopt.getopt(argv,"hy:d:t:",["year=","day=","template="])[0]
     except getopt.GetoptError as err:
@@ -26,7 +27,6 @@ def main(argv):
         print(errorMsg)
         sys.exit(2)
     try:
-
         for opt, arg in opts:
             if opt in ("-h", "--help"):
                 print(errorMsg)
@@ -48,7 +48,7 @@ def main(argv):
         print("Path does alread exists. Maybe define a day and/or year with -d and/or -y")
         sys.exit(0)
     else:
-        destPath.mkdir()
+        destPath.mkdir(parents=True)
 
     for f in templatePath.iterdir():
         if(f.is_file()):
@@ -66,7 +66,7 @@ def main(argv):
     
 
 if(__name__ == "__main__"):
-    main(sys.argv)
+    main(sys.argv[1:])
 
 
     
