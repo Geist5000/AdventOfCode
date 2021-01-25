@@ -1,6 +1,6 @@
 # AdventOfCode
 
-To get the challenge click [here](https://adventofcode.com/2020/day/{day:d})
+To get the challenge click [here](https://adventofcode.com/{year:d}/day/{day:d})
 
 # Contents
   - first.py: code for the first part of the challenge
