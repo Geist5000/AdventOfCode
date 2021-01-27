@@ -6,4 +6,4 @@ with open("testInput.txt") as f:
 
 
 for l in lines:
-    print(ls)
+    print(l)
