@@ -9,7 +9,12 @@ To get the challenge click [here](https://adventofcode.com/2018/day/2)
   - testInput.txt: usually the challenge input used in the example of the challenge (used for developing the code because the result is known)
 
 
-## Part Two
+# Part Two
+
+
+## Task
+
+You get a list of words, find the two words which have a one character difference.
 
 ## Idea:
 ### Tree Stucture:
