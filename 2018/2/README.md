@@ -10,7 +10,7 @@ To get the challenge click [here](https://adventofcode.com/2018/day/2)
 
 
 
-## IDEA:
+## Idea:
 
 input: abcde,fghij,klmno,pqrst,fguij,axcye,wvxyz
 Iterate over each word, and over each character  
