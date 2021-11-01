@@ -43,7 +43,7 @@ def main(argv):
         sys.exit(2)
     
 
-    destPath = Path("{:d}/{:d}".format(year,day))
+    destPath = Path("{:d}/{:02d}".format(year,day))
     if(destPath.exists()):
         print("Path does alread exists. Maybe define a day and/or year with -d and/or -y")
         sys.exit(0)
