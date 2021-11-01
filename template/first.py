@@ -8,7 +8,7 @@ def loadData(fileName:str, mapFunc: LambdaType = lambda x: x):
 
 def main(fileName:str):
     lines = loadData(fileName)
-    for l in lines:
+    for index,l in enumerate(lines):
         print(l)
 
 
