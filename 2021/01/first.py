@@ -13,7 +13,7 @@ def main(fileName:str):
     inc_count = 0
     dec_count = 0
     same_count = 0
-    for index,n in enumerate(lines[1:]):
+    for n in lines[1:]:
         if last < n:
             inc_count += 1
         elif last > n:
