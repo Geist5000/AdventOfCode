@@ -10,12 +10,14 @@ def main(fileName:str):
     lines = loadData(fileName)
     for index,l in enumerate(lines):
         print(l)
-
+    return "result"
 
 if __name__ == "__main__":
-    test = True
-    if(test):
-        fileName = "testInput.txt"
-    else:
-        fileName = "data.txt"
-    main(fileName)
+    expectedTestOutput = "result"
+    
+    testResult = main("testInput.txt")
+    print(f"Test result: {testResult}")
+    if testResult == expectedTestOutput:
+        print("Test result is same as expected output. \nAttemping to solve real dataset:")
+        realResult = main("data.txt")
+        print(f"Real result is {realResult}")
