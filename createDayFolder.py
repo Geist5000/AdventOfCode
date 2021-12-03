@@ -1,6 +1,9 @@
-import sys,getopt,os
+import sys
+import getopt
+import os
 from datetime import datetime
 from pathlib import Path
+from string import Template
 
 
 def main(argv):
@@ -8,9 +11,8 @@ def main(argv):
     templatePath = Path("template")
     year = today.year
     day = today.day
-    
-    
-    errorMsg ="""
+
+    errorMsg = """
     createDayFolder.py [-h] [-y <year>] [-d <day>] [-t <template>]
     
     
@@ -21,7 +23,8 @@ def main(argv):
     """
     opts = None
     try:
-        opts = getopt.getopt(argv,"hy:d:t:",["year=","day=","template="])[0]
+        opts = getopt.getopt(
+            argv, "hy:d:t:", ["year=", "day=", "template="])[0]
     except getopt.GetoptError as err:
         print("An error has occured")
         print(errorMsg)
@@ -41,9 +44,8 @@ def main(argv):
         print(err)
         print(errorMsg)
         sys.exit(2)
-    
 
-    destPath = Path("{:d}/{:02d}".format(year,day))
+    destPath = Path("{:d}/{:02d}".format(year, day))
     if(destPath.exists()):
         print("Path does alread exists. Maybe define a day and/or year with -d and/or -y")
         sys.exit(0)
@@ -53,20 +55,14 @@ def main(argv):
     for f in templatePath.iterdir():
         if(f.is_file()):
             with f.open("r") as file:
-                contents = file.read().format(day=day,year=year)
-            
+                contents = Template(file.read()).safe_substitute(
+                    {"day": str(day), "year": str(year)})
+
             dest = destPath.joinpath(f.name)
             with dest.open(mode="w") as file:
                 file.write(contents)
             print(f.name + " copied!")
 
 
-
-
-    
-
 if(__name__ == "__main__"):
     main(sys.argv[1:])
-
-
-    
