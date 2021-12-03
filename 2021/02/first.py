@@ -1,4 +1,5 @@
 from types import LambdaType
+import re
 
 
 def loadData(fileName:str, mapFunc: LambdaType = lambda x: x):
@@ -8,12 +9,24 @@ def loadData(fileName:str, mapFunc: LambdaType = lambda x: x):
 
 def main(fileName:str):
     lines = loadData(fileName)
+    regex = re.compile("(forward|down|up) (-?\d+)")
+    x = 0
+    y = 0
     for index,l in enumerate(lines):
-        print(l)
+        ma = regex.fullmatch(l)
+        action = ma.group(1)
+        amount = int(ma.group(2))
+        if action == "forward":
+            x += amount
+        elif action == "down":
+            y += amount
+        elif action == "up":
+            y -= amount
+    print(f"{x} * {y} = {x*y}")
 
 
 if __name__ == "__main__":
-    test = True
+    test = False
     if(test):
         fileName = "testInput.txt"
     else:
