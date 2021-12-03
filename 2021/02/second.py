@@ -12,21 +12,23 @@ def main(fileName:str):
     regex = re.compile("(forward|down|up) (-?\d+)")
     x = 0
     y = 0
+    aim = 0
     for index,l in enumerate(lines):
         ma = regex.fullmatch(l)
         action = ma.group(1)
         amount = int(ma.group(2))
         if action == "forward":
             x += amount
+            y += aim * amount
         elif action == "down":
-            y += amount
+            aim += amount
         elif action == "up":
-            y -= amount
+            aim -= amount
     print(f"{x} * {y} = {x*y}")
 
 
 if __name__ == "__main__":
-    test = False
+    test = True
     if(test):
         fileName = "testInput.txt"
     else:
