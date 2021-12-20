@@ -73,14 +73,15 @@ def loadData(fileName: str, mapFunc: LambdaType = lambda x: x):
 def main(fileName: str):
     lines = loadData(fileName)
     cavern = Cavern(lines)
-    for iteration in range(100):
-        cavern.charge_all()
+    iteration = 1
+    while not cavern.charge_all():
+        iteration += 1
     
-    return cavern.flash_count
+    return iteration
 
 
 if __name__ == "__main__":
-    expectedTestOutput = 1656
+    expectedTestOutput = 195
 
     testResult = main("testInput.txt")
     print(f"Test result: {testResult}")
