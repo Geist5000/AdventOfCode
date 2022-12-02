@@ -6,8 +6,10 @@ int main() {
 
     char buff[100];
 
-    fgets(buff, 100, file);
-    printf("%s", buff);
+    int x, y;
+
+    fscanf(file, "%d,%d", &x, &y);
+    printf("%d %d", x,y);
     fclose(file);
     return 0;
 }
